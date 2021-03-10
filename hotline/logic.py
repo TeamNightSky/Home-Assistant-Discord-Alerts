@@ -1,4 +1,4 @@
-from api import run_script
+from .api import run_script
 
 
 def message_logic(COOLDOWNS):

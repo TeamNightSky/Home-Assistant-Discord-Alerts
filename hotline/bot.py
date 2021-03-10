@@ -1,8 +1,7 @@
-import os
 import time
 from discord.ext import commands
-from utils import DATA, COOLDOWNS, round_time, between_times
-from logic import message_logic
+from .utils import DATA, COOLDOWNS, round_time, between_times
+from .logic import message_logic
 
 
 class Hotline(commands.Bot):
@@ -10,7 +9,7 @@ class Hotline(commands.Bot):
         self.extra_exts = {
             'Notify': f'Mention <@!{DATA["owner_id"]}> to violently notify them of your intent to urgently contact them.'
         }
-        print(f'{bot.user.name} has connected to Discord!')
+        print(f'{self.user.name} has connected to Discord!')
 
     async def on_message(self, message):
         if message.author == self.user:

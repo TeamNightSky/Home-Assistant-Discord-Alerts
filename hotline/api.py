@@ -1,11 +1,12 @@
 import os
 import json
 import requests
-from utils import DATA
+from .utils import DATA
 
 
 TOKEN = os.getenv("HOMEASSISTANT_TOKEN")
 URL = DATA['api-endpoint']
+
 
 HEADERS = {
     "Authorization": f"Bearer {TOKEN}",
