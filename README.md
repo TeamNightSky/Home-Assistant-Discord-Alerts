@@ -5,6 +5,7 @@ Notifies you when you have notifications from discord.
 ## ENVIRONMENT:
 
 ``DISCORD_TOKEN=<Discord Bot Token>``
+
 ``HOMEASSISTANT_TOKEN=<Long Lived Home Assistant Token>``
 
 ## data.json
