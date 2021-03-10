@@ -1,0 +1,10 @@
+*.pyc
+*.c
+*.idea
+
+*.json
+.replit
+__pycache__/
+
+*.toml
+*.lock
