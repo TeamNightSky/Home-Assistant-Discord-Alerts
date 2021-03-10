@@ -2,6 +2,7 @@
 *.c
 *.idea
 
+*.env
 *.json
 .replit
 __pycache__/
