@@ -41,8 +41,9 @@ class Hotline(commands.Bot):
                 await message.channel.send("You can't notify owner for another {}".format(round_time(time_left)))
             
             message_logic(COOLDOWNS)
-        else:
-            await self.process_commands(message)
+        if f'<@!{self.user.id}>' in message.content or f'<@{self.user.id}>' in message.content:
+            await self.cogs['Help'].help_command(type('Context', (), {'send': message.channel.send, 'message': message}))
+        await self.process_commands(message)
 
     async def on_command_error(self, ctx, error):
         print(type(error))
