@@ -1,5 +1,5 @@
 from discord.ext import commands
-from utils import DATA
+from ..utils import DATA
 import random
 import discord
 
@@ -37,7 +37,8 @@ class Help(commands.Cog):
         owner = await self.bot.fetch_user(DATA['owner_id'])
         embed.set_author(name=owner, icon_url=owner.avatar_url)
         if command is None:
-            await ctx.send(f'**``My prefix is "{self.bot.command_prefix}".``**')
+            prefix = self.bot.command_prefix(self.bot, ctx.message)[-1]
+            await ctx.send(f'**``My prefix is "{prefix}".``**')
             await self.all_help(ctx, embed)
         else:
             await self.command_help(ctx, embed, command)
@@ -56,8 +57,6 @@ class Help(commands.Cog):
         for name, docs in self.bot.extra_exts.items():
             val += f'`{name}`: {docs}\n'
         embed.add_field(name='Other Help', value=val, inline=False)
-        
-        
         await ctx.send(embed=embed)
 
     async def command_help(self, ctx, embed, *command: str):

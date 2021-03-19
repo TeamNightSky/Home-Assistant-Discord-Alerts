@@ -1,10 +1,12 @@
 import discord
-from discord.ext import commands
-from utils import DATA, COOLDOWNS, between_times, round_time
-from datetime import datetime
-import asyncio
-from api import run_script
 import atexit
+import asyncio
+
+from datetime import datetime
+from discord.ext import commands
+
+from ..utils import DATA, COOLDOWNS, between_times, round_time
+from ..api import run_script
 
 def setup(bot):
     bot.add_cog(Owner(bot))
@@ -35,6 +37,21 @@ class Owner(commands.Cog):
             description="Your lights are now normal."
         )
         run_script('dog_light_off')
+        run_script("all_lights_off")
+        await ctx.send(embed=embed)
+
+    @commands.command(name='reset-alarm', aliases=['ra'])
+    @owner_only()
+    async def resetalarm_command(self, ctx):
+        """[Owner ONLY] Reset the alarm."""
+        
+        embed = discord.Embed(
+            title=':white_check_mark: The alarm has been stopped',
+            color=0x00ff00,
+            description="Your lights are now normal."
+        )
+
+        run_script("all_lights_off")
         await ctx.send(embed=embed)
     
 
@@ -60,7 +77,7 @@ class Owner(commands.Cog):
         if block is not None:
             DATA['block'] = block
         else:
-            DATA['block'] = bool((int(DATA['block']) + 1) % 2)
+            DATA['block'] = not DATA["block"]
 
         DATA.save()
         if DATA['block']:
@@ -75,6 +92,24 @@ class Owner(commands.Cog):
                 color=0x00ff00,
                 description="All notifications have been enabled."
             )
+        await ctx.send(embed=embed)
+
+    @commands.command(name='change-color', aliases=['cc'])
+    @owner_only()
+    async def change_color_command(self, ctx, color="red"):
+        """[Owner ONLY] Changes the color of your lights."""
+        embed = discord.Embed(
+            title=f"Joey\'s lights have changed {color}.",
+            color=0x00ff00,
+        )
+        if color == "blue":
+            run_script("all_lights_blue")
+        elif color == "green":
+            run_script("all_lights_green")
+        elif color == "off":
+            run_script("all_lights_off")
+        else:
+            run_script("all_lights_red")
         await ctx.send(embed=embed)
     
     @commands.command(name='downtime', aliases=['dt'])
@@ -126,7 +161,7 @@ class Owner(commands.Cog):
     @commands.Cog.listener('on_ready')
     async def status_changer(self):
         while True:
-            if between_times(*DATA['downtime'].values(), datetime.now(), DATA['time_zone']):
+            if between_times(*DATA['downtime'].values(), datetime.now(), DATA['time_zone']) or DATA["block"]:
                 await self.bot.change_presence(
                     status=discord.Status.dnd, 
                     activity=discord.Activity(

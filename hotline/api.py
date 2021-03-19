@@ -7,7 +7,6 @@ from .utils import DATA
 TOKEN = os.getenv("HOMEASSISTANT_TOKEN")
 URL = DATA['api-endpoint']
 
-
 HEADERS = {
     "Authorization": f"Bearer {TOKEN}",
     "content-type": "application/json",
@@ -28,7 +27,7 @@ def update_config():
 
 
 update_config()
-
+    
 
 def get_services():
     url = os.path.join(URL, 'services')

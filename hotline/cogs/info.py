@@ -1,5 +1,5 @@
 from discord.ext import commands
-from utils import DATA, round_time
+from ..utils import DATA, round_time
 
 
 def setup(bot):

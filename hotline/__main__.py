@@ -7,8 +7,8 @@ bot = Hotline(
     help_command=None
 )
 
-for file in os.listdir('cogs'):
-    path = os.path.join('cogs', file)
+for file in os.listdir('hotline/cogs'):
+    path = os.path.join('hotline/cogs', file)
     if path.endswith('.py'):
         bot.load_extension(path.replace('.py', '').replace('/', '.'))
 
