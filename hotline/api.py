@@ -40,6 +40,7 @@ def get_services():
 def run_service(domain, script_name):
     url = os.path.join(URL, 'services', domain, script_name)
     resp = requests.post(url, headers=HEADERS)
+    print(get_scripts())
     try:
         return resp.json()
     except json.decoder.JSONDecodeError:
@@ -48,3 +49,5 @@ def run_service(domain, script_name):
 
 run_script = lambda x: run_service('script', x)
 get_scripts = lambda: list(get_services()['script']['services'])
+
+run_service('script', 'dog_light_red')

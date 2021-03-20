@@ -12,4 +12,3 @@ for file in os.listdir('hotline/cogs'):
     if path.endswith('.py'):
         bot.load_extension(path.replace('.py', '').replace('/', '.'))
 
-bot.run(os.getenv('DISCORD_TOKEN'))
