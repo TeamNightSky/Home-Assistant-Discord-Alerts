@@ -40,7 +40,10 @@ def get_services():
 def run_service(domain, script_name):
     url = os.path.join(URL, 'services', domain, script_name)
     resp = requests.post(url, headers=HEADERS)
-    return resp.json()
+    try:
+        return resp.json()
+    except json.decoder.JSONDecodeError:
+        print(resp.text)
 
 
 run_script = lambda x: run_service('script', x)
