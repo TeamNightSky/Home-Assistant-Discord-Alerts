@@ -1,1 +1,2 @@
-web: python -m hotline
+worker: python -m hotline
+web: gunicorn docs:app
