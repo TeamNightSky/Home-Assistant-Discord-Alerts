@@ -1,2 +1,1 @@
-worker: python -m hotline
-web: gunicorn docs:app
+web: python -m hotline

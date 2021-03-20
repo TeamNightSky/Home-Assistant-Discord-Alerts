@@ -11,12 +11,6 @@ def home():
     return 'You have found the home of a python program.'
 
 
-from hotline.__main__ import bot
-
-threading.Thread(
-    target=bot.run,
-    args=[os.getenv('DISCORD_TOKEN')]
-).start()
 
 
 
